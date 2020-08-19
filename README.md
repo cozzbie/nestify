@@ -1,8 +1,8 @@
-# inocalf
+# nestify
 
 A small CLI parser built with ❤ with [Nodejs](https://nodejs.org/en/).
 
-`inocalf <nest1> <nest2> <nest3>`
+`nestify <nest1> <nest2> <nest3>`
 
 ## Getting started
 
@@ -16,7 +16,7 @@ A small CLI parser built with ❤ with [Nodejs](https://nodejs.org/en/).
 
 - Install [Node](https://nodejs.org/en/) which also installs `npm`.
 - `cd` into the project and run `npm link`
-- Run `cat <path to input.json file> | inocalf <nest1> <nest2> <nest3>`
+- Run `cat <path to input.json file> | nestify <nest1> <nest2> <nest3>`
 
 #### With Docker
 
@@ -25,12 +25,10 @@ A small CLI parser built with ❤ with [Nodejs](https://nodejs.org/en/).
 
 From this you have several options to perform your operations:
 
-- You can run `docker run -i inocalf 'cat'` which starts a container and keeps it running. From here all you have to do is `ssh` into the container by running `docker exec -it <container name> bash` and run your test against `inocalf <nest1> <nest2> <nest3>`.
+- You can run `docker run -i inocalf 'cat'` which starts a container and keeps it running. From here all you have to do is `ssh` into the container by running `docker exec -it <container name> bash` and run your test against `nestify <nest1> <nest2> <nest3>`.
 
 OR
 
-- Pipe `cat <path to json file>| docker run -i -a stdin -a stderr inocalf inocalf <nest1> <nest2> <nest3>` to run the container and execute your input.
+- Pipe `cat <path to json file>| docker run -i -a stdin -a stderr inocalf nestify <nest1> <nest2> <nest3>` to run the container and execute your input.
 
 ### Notes
-
-I really wanted to have a single command that runs `cat`ed files from the host even if execution was being done via Docker. I had never done this before so this took a bit to figure out.
