@@ -1,7 +1,11 @@
 module.exports = async (args) => {
-	const parsed = await parsify(args);
-	const output = nestify(parsed);
-	process.stderr.write(JSON.stringify(output));
+	try {
+		const parsed = await parsify(args);
+		const output = nestify(parsed);
+		process.stderr.write(JSON.stringify(output, null, "   "));
+	} catch (e) {
+		process.stderr.write(e);
+	}
 };
 
 /**
@@ -13,24 +17,32 @@ module.exports = async (args) => {
  */
 const parsify = args => {
 	return new Promise((resolve, reject) => {
-		const stdin = process.openStdin();
+		const stdin = process.stdin;
 		let data = '';
 
+		stdin.resume();
 		stdin.on('data', chunk => {
 			data += chunk;
 		});
 
 		stdin.on('end', () => {
+			let json;
+
+			try {
+				json = JSON.parse(data);
+			} catch (e) {
+				reject('Invalid JSON detected. Please try again with proper JSON standard input.');
+			}
+
 			const output = {
-				json: JSON.parse(data),
+				json,
 				args: args.splice(2)
 			}
-			resolve(output)
-
+			resolve(output);
 		});
 
 		stdin.on('error', () => {
-			reject('An error occured while parsing your values. Please retry.')
+			reject('An error occured while parsing your values. Please retry.');
 		});
 	});
 };
@@ -54,7 +66,6 @@ const nestify = ({ json, args }) => {
 
 	for (let i = 0; i < json.length; i++) {
 		const item = { ...json[i] };
-
 		const keys = validKeys(args, Object.keys(item));
 
 		if (!keys.length) {
@@ -78,9 +89,9 @@ const nestify = ({ json, args }) => {
 };
 
 /**
- * Users might request a mixture of valid and invalid
+ * A request might have a mixture of valid and invalid
  * nestings or even keys that do not match.
- * This function 'sanitizes' keys and returns
+ * Here we 'sanitize' keys and returns
  * only vlaues that are useable
  * 
  * @param {Array} expected 
