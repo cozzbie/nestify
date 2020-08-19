@@ -25,7 +25,7 @@ A small CLI parser built with ❤ with [Nodejs](https://nodejs.org/en/).
 
 From this you have several options to perform your operations:
 
-- You can run `docker run -i <image name> 'cat'` which starts the container and keeps it running. From here all you have to do is `ssh` into the container by running `docker exec -it <container name> bash` and run your test against `nestify <nest1> <nest2> <nest3>`.
+- You can run `docker run -ip 2020:2020 <image name>` which starts the container and keeps it running. From here all you have to do is `ssh` into the container by running `docker exec -it <container name> bash` and run your test against `nestify <nest1> <nest2> <nest3>`.
 
 OR
 
@@ -38,7 +38,58 @@ OR
 
 # TASK TWO
 
-- Ensure your `'Content-Type'` is set to `'application/json'`
+Keeping your docker container running...
+
+- Point your API tool eg [Postman](https://www.postman.com/) to `localhost:2020`
+- Ensure your`'Content-Type'` is set to `'application/json'`
+- Optionally you can do this also with `curl`.
+
+A sample curl request would look like
+
+```curl
+curl --location --request POST 'localhost:2020/currency/country/city' \
+--header 'Authorization: Basic YWRtaW46YWRtaW4=' \
+--header 'Content-Type: application/json' \
+--data-raw '[
+  {
+    "country": "US",
+    "city": "Boston",
+    "currency": "USD",
+    "amount": 100
+  },
+  {
+    "country": "FR",
+    "city": "Paris",
+    "currency": "EUR",
+    "amount": 20
+  },
+  {
+    "country": "FR",
+    "city": "Lyon",
+    "currency": "EUR",
+    "amount": 11.4
+  },
+  {
+    "country": "ES",
+    "city": "Madrid",
+    "currency": "EUR",
+    "amount": 8.9
+  },
+  {
+    "country": "UK",
+    "city": "London",
+    "currency": "GBP",
+    "amount": 12.2
+  },
+  {
+    "country": "UK",
+    "city": "London",
+    "currency": "FBP",
+    "amount": 10.9
+  }
+]
+'
+```
 
 ### Notes
 

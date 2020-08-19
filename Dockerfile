@@ -2,10 +2,14 @@ FROM node:14.8.0
 
 RUN mkdir app
 
-COPY server.js package.json package-lock.json app/
+COPY package.json package-lock.json app/
 COPY src app/src
 COPY bin app/bin
 
 WORKDIR /app
 
-RUN npm link
+RUN npm i && npm link
+
+EXPOSE 2020
+
+CMD node ./src/server.js

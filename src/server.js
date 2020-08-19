@@ -60,7 +60,7 @@ server.use(async (req, resp, next) => {
 });
 
 
-server.get('/', (req, resp) => {
+server.get('/', (_, resp) => {
 	return resp.send('Please use a POST request to make a Nestify call');
 });
 
