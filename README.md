@@ -37,3 +37,9 @@ OR
 - Outputs are not sorted like `output.json`
 
 # TASK TWO
+
+- Ensure your `'Content-Type'` is set to `'application/json'`
+
+### Notes
+
+- Basic Auth:
