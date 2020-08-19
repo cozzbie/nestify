@@ -1,5 +1,5 @@
 {
-  "name": "inocalf",
+  "name": "nestify",
   "version": "1.0.0",
   "description": "CLI JSON parser",
   "main": "src/index.js",
@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cozzbie/inocalf.git"
+    "url": "git+https://github.com/cozzbie/nestify.git"
   },
   "author": "Timi Aiyemo <cozzbie@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cozzbie/inocalf/issues"
+    "url": "https://github.com/cozzbie/nestify/issues"
   },
-  "homepage": "https://github.com/cozzbie/inocalf#readme"
+  "homepage": "https://github.com/cozzbie/nestify#readme"
 }

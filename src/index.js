@@ -4,7 +4,7 @@ module.exports = async (args) => {
 		const output = nestify(parsed);
 		process.stderr.write(JSON.stringify(output, null, "   "));
 	} catch (e) {
-		process.stderr.write(e);
+		process.stderr.write(`${e}\n`);
 	}
 };
 
@@ -12,7 +12,7 @@ module.exports = async (args) => {
  * A function that collects input from stdin
  * parses its value into readable js structures
  * 
- * @param {string[]} args 
+ * @param {string[]} args
  * @returns {Promise}
  */
 const parsify = args => {
@@ -21,7 +21,15 @@ const parsify = args => {
 		let data = '';
 
 		stdin.resume();
+		stdin.setEncoding('utf8');
+
 		stdin.on('data', chunk => {
+
+			// We might have freezes...need a way to termincate the process.
+			if (chunk === '\u0003') {
+				process.exit();
+			}
+
 			data += chunk;
 		});
 
@@ -78,6 +86,7 @@ const nestify = ({ json, args }) => {
 		for (let j = 0; j < keys.length; j++) {
 			const objOrArr = j == (keys.length - 1) ? [] : {};
 			const key = item[keys[j]];
+
 			node = node[key] || (node[key] = objOrArr);
 			delete item[keys[j]];
 		}
