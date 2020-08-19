@@ -4,7 +4,7 @@
   "description": "CLI JSON nestifier",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --timeout 10000 ./tests/**.js --exit"
   },
   "bin": {
     "nestify": "bin/cli"

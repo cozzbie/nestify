@@ -5,6 +5,7 @@ RUN mkdir app
 COPY package.json package-lock.json app/
 COPY src app/src
 COPY bin app/bin
+COPY tests app/tests
 
 WORKDIR /app
 

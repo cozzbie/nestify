@@ -1,16 +1,18 @@
-# nestify - TASK ONE
+# nestify
+
+## TASK ONE
 
 A small CLI parser built with ❤ with [Nodejs](https://nodejs.org/en/).
 
 `nestify <nest1> <nest2> <nest3>`
 
-## Getting started
+### Getting started
 
 - Clone the repository. If you are receiving this as a `bundle`, please run `git clone <bunlde file>`.
 - Install [Docker](https://www.docker.com/) if you do not already have it. This is very OS dependent so please find your appropriate OS specific version.
 - `cd` into the repository
 
-## Running the application
+### Running the CLI application
 
 #### As a base repo
 
@@ -25,7 +27,7 @@ A small CLI parser built with ❤ with [Nodejs](https://nodejs.org/en/).
 
 From this you have several options to perform your operations:
 
-- You can run `docker run -ip 2020:2020 <image name>` which starts the container and keeps it running. From here all you have to do is `ssh` into the container by running `docker exec -it <container name> bash` and run your test against `nestify <nest1> <nest2> <nest3>`.
+- You can run `docker run -ip 2020:2020 <image name>` (the port references are for [Task Two](#task-two)) which starts the container and keeps it running. From here all you have to do is `ssh` into the container by running `docker exec -it <container name> bash` and run your test against `nestify <nest1> <nest2> <nest3>`.
 
 OR
 
@@ -36,11 +38,11 @@ OR
 - `<image name>` and `<container name>` are user defined. `<container name>` can be seen by `docker ps` after running an image (`docker run <image name>`).
 - Outputs are not sorted like `output.json`
 
-# TASK TWO
+## TASK TWO
 
 Keeping your docker container running...
 
-- Point your API tool eg [Postman](https://www.postman.com/) to `localhost:2020`
+- Point your GUI API tool eg [Postman](https://www.postman.com/) to `localhost:2020`
 - Ensure your`'Content-Type'` is set to `'application/json'`
 - Optionally you can do this also with `curl`.
 
@@ -91,6 +93,13 @@ curl --location --request POST 'localhost:2020/currency/country/city' \
 '
 ```
 
-### Notes
+### Notes and Excerpts
 
-- Basic Auth:
+- Basic Auths value should be the same as the `curl` example else a `401` response is thrown.
+
+The following commands are useful:
+
+- Building your image: `docker build -t <image name> .`
+- Starting your container: `docker run -ip 2020:2020 <image name>`
+- Stopping your container: `docker stop <container name>`
+- Running arbitrary commands against your container: `docker run -t inocalf <list of commands>`

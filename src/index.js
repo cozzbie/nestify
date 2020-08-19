@@ -120,5 +120,6 @@ module.exports = {
 			process.stderr.write(`${e}\n`);
 		}
 	},
-	nestify
+	nestify,
+	validKeys
 };
