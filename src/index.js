@@ -2,16 +2,6 @@
  * TASK ONE
  */
 
-module.exports = async (args) => {
-	try {
-		const parsed = await parsify(args);
-		const output = nestify(parsed);
-		process.stderr.write(JSON.stringify(output, null, "   "));
-	} catch (e) {
-		process.stderr.write(`${e}\n`);
-	}
-};
-
 /**
  * A function that collects input from stdin
  * parses its value into readable js structures
@@ -119,3 +109,16 @@ const validKeys = (expected, gotten) => {
 
 	return expected.filter(key => gotten.includes(key));
 }
+
+module.exports = {
+	cli: async (args) => {
+		try {
+			const parsed = await parsify(args);
+			const output = nestify(parsed);
+			process.stderr.write(JSON.stringify(output, null, "   "));
+		} catch (e) {
+			process.stderr.write(`${e}\n`);
+		}
+	},
+	nestify
+};
