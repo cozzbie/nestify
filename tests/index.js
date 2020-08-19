@@ -59,7 +59,7 @@ describe('Nestify', () => {
 				});
 		});
 
-		it('should return expected number of outer keys from /<nests>...', done => {
+		it('should return expected output from /<nests>...', done => {
 			requester.post('/currency/country/city')
 				.set('Authorization', 'Basic YWRtaW46YWRtaW4=')
 				.set('Content-Type', 'application/json')

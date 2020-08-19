@@ -2,7 +2,7 @@
 
 ## TASK ONE
 
-A small CLI parser built with ❤ with [Nodejs](https://nodejs.org/en/).
+A small JSON parser built with ❤ with [Nodejs](https://nodejs.org/en/) based on rules loosly seen in the dumps files between the input and the output json files.
 
 `nestify <nest1> <nest2> <nest3>`
 
@@ -32,11 +32,6 @@ From this you have several options to perform your operations:
 OR
 
 - Pipe `cat <path to json file> | docker run -i -a stdin -a stderr <container name> nestify <nest1> <nest2> <nest3>` to run the container and execute your input.
-
-### Notes
-
-- `<image name>` and `<container name>` are user defined. `<container name>` can be seen by `docker ps` after running an image (`docker run <image name>`).
-- Outputs are not sorted like `output.json`
 
 ## TASK TWO
 
@@ -93,6 +88,10 @@ curl --location --request POST 'localhost:2020/currency/country/city' \
 '
 ```
 
+## TESTS
+
+- Run `docker run -t <container name> npm test`
+
 ### Notes and Excerpts
 
 - Basic Auths value should be the same as the `curl` example else a `401` response is thrown.
@@ -102,4 +101,12 @@ The following commands are useful:
 - Building your image: `docker build -t <image name> .`
 - Starting your container: `docker run -ip 2020:2020 <image name>`
 - Stopping your container: `docker stop <container name>`
-- Running arbitrary commands against your container: `docker run -t inocalf <list of commands>`
+- Running arbitrary commands against your container: `docker run -t <container name> <list of commands>`
+- `<image name>` and `<container name>` are user defined. `<container name>` can be seen by `docker ps` after running an image (`docker run <image name>`).
+- Outputs are not sorted like `output.json`
+
+## Thoughts
+
+- It would be nice to have all the possible executions specified in `docker-compose` files. However these are mainly nice if rules were pre-specified and concrete
+- Hardest part is always being in the know of how users would interact with this. As a base repo using `npm link`? Via Docker? Would they pipe values into the container or `ssh` into them and run their commands?
+- Current implementation uses an `n x m` approach. It would be nice if suggestions could be made as to how to make this `O(n)` but having arbitrary nestings makes this a none trivial task.
