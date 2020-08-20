@@ -8,7 +8,7 @@ A small JSON parser built with ❤ with [Nodejs](https://nodejs.org/en/) based o
 
 ### Getting started
 
-- Clone the repository. If you are receiving this as a `bundle`, please run `git clone <bunlde file>`.
+- Clone the repository. If you are receiving this as a `bundle`, please run `git clone -b master <bunlde file>`.
 - Install [Docker](https://www.docker.com/) if you do not already have it. This is very OS dependent so please find your appropriate OS specific version.
 - `cd` into the repository
 
