@@ -5,6 +5,7 @@ const chaihttp = require('chai-http');
 const server = require('../src/server');
 const jsonIn = require('./dumps/input.json');
 const jsonOut = require('./dumps/output.json');
+const { spawn } = require('child_process');
 
 chai.use(chaihttp);
 
@@ -36,6 +37,54 @@ describe('Nestify', () => {
 			const output = nestify({ json: jsonIn, args });
 
 			expect(Object.keys(output).length).to.equal(4);
+		});
+
+		it('should return expected number of outer keys using cli', done => {
+			const args = ['currency', 'country', 'city'];
+			const echo = spawn('echo', [JSON.stringify(jsonIn)]);
+			const proc = spawn('nestify', args);
+			let output = '';
+
+			echo.stdout.on('data', chunk => {
+				proc.stdin.write(chunk);
+			});
+
+			echo.on('close', () => {
+				proc.stdin.end();
+			});
+
+			proc.stderr.on('data', chunk => {
+				output += chunk;
+			});
+
+			proc.on('close', () => {
+				expect(Object.keys(JSON.parse(output)).length).to.equal(4);
+				done();
+			});
+		});
+
+		it('should return a cli error', done => {
+			const args = ['currency', 'country', 'city'];
+			const echo = spawn('echo', ['']);
+			const proc = spawn('nestify', args);
+			let output = '';
+
+			echo.stdout.on('data', chunk => {
+				proc.stdin.write(chunk);
+			});
+
+			echo.on('close', () => {
+				proc.stdin.end();
+			});
+
+			proc.stderr.on('data', chunk => {
+				output += chunk;
+			});
+
+			proc.on('close', () => {
+				expect(output).to.equal('Invalid JSON detected. Please try again with proper JSON standard input.\n');
+				done();
+			});
 		});
 
 		it('should return an `Unauthed` message from /', done => {

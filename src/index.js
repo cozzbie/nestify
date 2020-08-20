@@ -17,6 +17,10 @@ const parsify = args => {
 		stdin.resume();
 		stdin.setEncoding('utf8');
 
+		stdin.on('SIGINT', () => {
+			process.exit();
+		});
+
 		stdin.on('data', chunk => {
 
 			// We might have freezes...need a way to termincate the process.
